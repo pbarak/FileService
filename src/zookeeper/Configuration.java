@@ -206,6 +206,7 @@ public class Configuration implements ServletContextListener {
 			try {
 				if (instance.zoo != null) {
 					instance.zoo.close();
+        				scheduler.shutdownNow();
 				}
 			}
 			catch ( InterruptedException ex) {
