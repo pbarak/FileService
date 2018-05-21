@@ -47,6 +47,8 @@ public class Configuration implements ServletContextListener {
 	private static String zoouser; 
 	private static String zoopass; 
 	private  ZooKeeper zoo;
+	private ScheduledExecutorService scheduler;
+
 	
 	final CountDownLatch connectedSignal = new CountDownLatch(1);
 	private static Configuration ConfInstance = null;
@@ -222,7 +224,9 @@ public class Configuration implements ServletContextListener {
 	
 		try {
 			instance.zoo = instance.zooConnect();
-			instance.PublishService(sce);	  
+			instance.PublishService(sce);
+			scheduler = Executors.newSingleThreadScheduledExecutor();
+        		scheduler.scheduleAtFixedRate(new MinuteLog(), 0, 1, TimeUnit.MINUTES);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
