@@ -1,0 +1,8 @@
+package api;
+
+public class MinuteLog implements Runnable {
+
+  public void run() {
+          FileServiceApi.PrintRequestsPerMinute(); //public static method 
+       }
+  }
