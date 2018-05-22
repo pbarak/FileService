@@ -33,6 +33,10 @@ public class FileServiceApi extends HttpServlet {
 	}
 	
 	private int counter = 0;
+	
+	private static int GetCounter = 0;
+	private static int CreateOrDeleteCounter = 0;
+	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -66,6 +70,7 @@ public class FileServiceApi extends HttpServlet {
 			    resJSON.put("error", "");
 			    out.print(resJSON);
 				out.flush();
+				GetCounter++;
 				return;
 			
 			}
@@ -106,6 +111,7 @@ public class FileServiceApi extends HttpServlet {
 			    JSONObject resJSON=new JSONObject();
 				resJSON.put("error", "");
 				out.print(resJSON.toString());
+				CreateOrDeleteCounter++;
 				return;
 			
 			}
@@ -122,5 +128,12 @@ public class FileServiceApi extends HttpServlet {
 		}		
 		
 	}
+	
+	public static void PrintRequestsPerMinute()
+	{
+		System.out.Println("There are" + GetCounter + "Get Requests Per Minute and" +  CreateOrDeleteCounter + "Create or Delete Requests Per Minute");	
+		GetCounter = 0;
+		CreateOrDeleteCounter = 0;
+	}	
 
 }
